@@ -1,0 +1,69 @@
+@baseUrl = http://localhost:8000/api
+
+### Listar todos los Dólares Referenciales
+GET {{baseUrl}}/dolar-ref
+Accept: application/json
+
+### Crear un nuevo Dólar Referencial
+POST {{baseUrl}}/dolar-ref
+Content-Type: application/json
+Accept: application/json
+X-API-KEY: secreto123
+
+{
+    "fecha": "2025-12-10",
+    "precio_compra": 7.50,
+    "precio_venta": 7.60
+}
+
+### Ver un Dólar Referencial específico (por fecha)
+GET {{baseUrl}}/dolar-ref/2025-12-10
+Accept: application/json
+
+### Actualizar un Dólar Referencial
+PUT {{baseUrl}}/dolar-ref/2025-12-10
+Content-Type: application/json
+Accept: application/json
+X-API-KEY: secreto123
+
+{
+    "fecha": "2025-12-10",
+    "precio_compra": 7.55,
+    "precio_venta": 7.65
+}
+
+### Eliminar un Dólar Referencial
+DELETE {{baseUrl}}/dolar-ref/2025-12-10
+Accept: application/json
+X-API-KEY: secreto123
+
+### Crear múltiples Dólares Referenciales
+POST {{baseUrl}}/dolar-ref
+Content-Type: application/json
+Accept: application/json
+X-API-KEY: secreto123
+
+[
+    {
+        "fecha": "2025-12-11",
+        "precio_compra": 7.50,
+        "precio_venta": 7.60
+    },
+    {
+        "fecha": "2025-12-12",
+        "precio_compra": 7.55,
+        "precio_venta": 7.65
+    }
+]
+
+### Obtener Dólares Referenciales por Mes (ej. Diciembre 2025)
+GET {{baseUrl}}/dolar-ref/obtener/2025-12
+Accept: application/json
+
+### Obtener Dólares Referenciales por Año (ej. 2025)
+GET {{baseUrl}}/dolar-ref/obtener-year/2025
+Accept: application/json
+
+### Obtener Dólares Referenciales por día (ej. 2025-12-10)
+GET {{baseUrl}}/dolar-ref/obtener-day/2025-12-10
+Accept: application/json

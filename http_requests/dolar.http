@@ -1,0 +1,69 @@
+@baseUrl = http://localhost:8000/api
+
+### Listar todos los Dólares
+GET {{baseUrl}}/dolar
+Accept: application/json
+
+### Crear un nuevo Dólar
+POST {{baseUrl}}/dolar
+Content-Type: application/json
+Accept: application/json
+X-API-KEY: secreto123
+
+{
+    "fecha": "2025-12-10",
+    "precio_compra": 6.96,
+    "precio_venta": 6.97
+}
+
+### Ver un Dólar específico (por fecha)
+GET {{baseUrl}}/dolar/2025-12-10
+Accept: application/json
+
+### Actualizar un Dólar
+PUT {{baseUrl}}/dolar/2025-12-10
+Content-Type: application/json
+Accept: application/json
+X-API-KEY: secreto123
+
+{
+    "fecha": "2025-12-10",
+    "precio_compra": 6.90,
+    "precio_venta": 6.91
+}
+
+### Eliminar un Dólar
+DELETE {{baseUrl}}/dolar/2025-12-10
+Accept: application/json
+X-API-KEY: secreto123
+
+### Crear múltiples Dólares
+POST {{baseUrl}}/dolar
+Content-Type: application/json
+Accept: application/json
+X-API-KEY: secreto123
+
+[
+    {
+        "fecha": "2025-12-11",
+        "precio_compra": 6.96,
+        "precio_venta": 6.97
+    },
+    {
+        "fecha": "2025-12-12",
+        "precio_compra": 6.96,
+        "precio_venta": 6.97
+    }
+]
+
+### Obtener Dólares por Mes (ej. Diciembre 2025)
+GET {{baseUrl}}/dolar/obtener/2025-12
+Accept: application/json
+
+### Obtener Dólares por Año (ej. 2025)
+GET {{baseUrl}}/dolar/obtener-year/2025
+Accept: application/json
+
+### Obtener Dólares por día (ej. 2025-12-10)
+GET {{baseUrl}}/dolar/obtener-day/2025-12-10
+Accept: application/json

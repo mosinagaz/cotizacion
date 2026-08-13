@@ -1,0 +1,65 @@
+@baseUrl = http://localhost:8000/api
+
+### Listar todas las UFVs
+GET {{baseUrl}}/ufv
+Accept: application/json
+
+### Crear una nueva UFV
+POST {{baseUrl}}/ufv
+Content-Type: application/json
+Accept: application/json
+X-API-KEY: secreto123
+
+{
+    "fecha": "2025-12-15",
+    "valor": 2.50000
+}
+
+### Ver una UFV específica (por fecha)
+GET {{baseUrl}}/ufv/2025-12-10
+Accept: application/json
+
+### Actualizar una UFV
+PUT {{baseUrl}}/ufv/2025-12-10
+Content-Type: application/json
+Accept: application/json
+X-API-KEY: secreto123
+
+{
+    "fecha": "2025-12-10",
+    "valor": 2.55000
+}
+
+### Eliminar una UFV
+DELETE {{baseUrl}}/ufv/2025-12-10
+Accept: application/json
+X-API-KEY: secreto123
+
+### Crear múltiples UFVs
+POST {{baseUrl}}/ufv
+Content-Type: application/json
+Accept: application/json
+X-API-KEY: secreto123
+
+[
+    {
+        "fecha": "2025-12-11",
+        "valor": 2.50000
+    },
+    {
+        "fecha": "2025-12-12",
+        "valor": 2.51000
+    }
+]
+
+### Obtener UFVs por Mes (ej. Diciembre 2025)
+GET {{baseUrl}}/ufv/obtener-month/2025-12
+Accept: application/json
+
+### Obtener UFVs por Año (ej. 2025)
+GET {{baseUrl}}/ufv/obtener-year/2025
+Accept: application/json
+
+### Obtener UFVs por día (ej. 2025-12-10)
+GET {{baseUrl}}/ufv/obtener-day/2025-12-10
+Accept: application/json

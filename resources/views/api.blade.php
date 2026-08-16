@@ -32,6 +32,52 @@
             margin: 0;
         }
 
+        @media (pointer: fine) {
+            body, a, button { cursor: none; }
+        }
+
+        .cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+        }
+
+        .cursor.is-on { opacity: 1; }
+
+        .cursor-point,
+        .cursor-ring {
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-point {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+        }
+
+        .cursor-ring {
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--accent);
+            transition: border-color .15s ease;
+        }
+
+        .cursor.is-light .cursor-point { background: #fff; }
+        .cursor.is-light .cursor-ring { border-color: rgba(255,255,255,.9); }
+
+        @media (pointer: coarse) {
+            .cursor { display: none; }
+        }
+
         header {
             background:
                 radial-gradient(circle at top right, #1d4ed8 0%, transparent 40%),
@@ -205,6 +251,16 @@
             font-size: .9rem;
         }
 
+        footer .visits {
+            margin-top: 0.5rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        footer .visits strong {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
         @media (max-width: 800px) {
             .quotes { grid-template-columns: 1fr; }
         }
@@ -365,15 +421,39 @@
             <h3>Documentación</h3>
             <p>
                 Detalle de validaciones, inserción masiva y convenciones en
-                <a href="https://github.com/DRiberaC/cotizaciones" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://github.com/mosinagaz/cotizacion" target="_blank" rel="noopener">GitHub</a>
                 (<strong>README.md</strong>).
             </p>
         </section>
     </main>
 
-    <footer>API de Cotizaciones</footer>
+    <footer>
+        API de Cotizaciones
+        <div class="visits">Visitas: <strong>{{ number_format($visitas) }}</strong></div>
+    </footer>
+
+    <div class="cursor" id="cursor" aria-hidden="true">
+        <div class="cursor-ring"></div>
+        <div class="cursor-point"></div>
+    </div>
 
     <script>
+        const cursor = document.getElementById('cursor');
+        const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+        if (finePointer && cursor) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+                cursor.classList.add('is-on');
+
+                const el = document.elementFromPoint(e.clientX, e.clientY);
+                const onDark = !!(el && el.closest('header, pre'));
+                cursor.classList.toggle('is-light', onDark);
+            });
+
+            document.addEventListener('mouseleave', () => cursor.classList.remove('is-on'));
+        }
+
         const preset = document.getElementById('preset');
         const path = document.getElementById('path');
         const out = document.getElementById('out');

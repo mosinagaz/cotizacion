@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dolar;
+use App\Models\SiteCounter;
 use App\Models\Ufv;
 use Illuminate\View\View;
 
@@ -28,11 +29,19 @@ class HomeController extends Controller
                 'venta' => $dolares->get($fecha)?->precio_venta,
             ]);
 
+        if (! session()->has('counted_visit')) {
+            $visitas = SiteCounter::incrementVisits();
+            session()->put('counted_visit', true);
+        } else {
+            $visitas = SiteCounter::visits();
+        }
+
         return view('api', [
             'ufv' => $ufv,
             'dolar' => $dolar,
             'historico' => $historico,
             'baseUrl' => url('/api'),
+            'visitas' => $visitas,
         ]);
     }
 }
